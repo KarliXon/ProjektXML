@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<UserInfo>
+  <Users>
+    <username>test123</username>
+    <password>12345</password>
+  </Users>
+  <Users>
+    <username>testuser2</username>
+    <password>54321</password>
+  </Users>
+  <Users>
+    <username>kale</username>
+    <password>kale</password>
+  </Users>
+</UserInfo>

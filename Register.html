@@ -1,0 +1,76 @@
+
+<html>
+<head>
+	<title>Register</title>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" type="text/css" href="style.css">
+</head>
+
+<body>
+
+	<div id="alert" style="position: absolute; top: 000px; left: 100px;">
+	</div>
+			
+	<div class="wrap form">
+		<h3>Register</h3>
+		<input type="text" placeholder="username" id="userText" size="25"
+				onkeydown = "if(event.keyCode == 13) 
+								funkcija1(document.getElementById('userText').value, 
+											  document.getElementById('passText').value)">
+						<br>
+		<input type="text" placeholder="password" id="passText" size="25"				
+				onkeydown = "if(event.keyCode == 13) 
+								funkcija1(document.getElementById('userText').value, 
+											  document.getElementById('passText').value)">
+						<br><br>
+						
+
+		<input type="button" value="Registriraj" 
+			onclick="funkcija1(document.getElementById('userText').value, 
+								   document.getElementById('passText').value)">
+		<p><br><a href="login.html">Login?</a></p>
+	</div>
+	
+	<script type="text/javascript">
+		
+		var submit_xml = new XMLHttpRequest();	
+		var get_xml = new XMLHttpRequest();
+		var Timer = null;
+		
+		function timer()
+		{  
+			Timer = setInterval("funkcija2Pause()", 3000 );
+		}
+		function funkcija2Pause()
+		{
+			clearInterval(Timer);
+			window.location = receivedInfo[1];	
+		}
+
+		function funkcija1(user, pass)
+		{
+			urlAddress = "Register.php?op=sendInfo&username=" + user + "&password=" + pass;	
+			submit_xml.open("GET", urlAddress, true);			
+			submit_xml.onreadystatechange = funkcija2;		
+			submit_xml.send(null);									
+		}
+		
+		function funkcija2()
+		{
+			if(submit_xml.readyState == 4)
+			{
+				if(submit_xml.status == 200)
+				{
+					receivedInfo = submit_xml.responseText.split('%');
+					document.getElementById("alert").innerHTML = "<a style='color:red;'>" + receivedInfo[0] + "</a><br>";
+					
+					if(receivedInfo[0] == "User Created.")
+					{
+						timer();
+					}
+				}
+			}	
+		}
+	</script>
+</body>
+</html>

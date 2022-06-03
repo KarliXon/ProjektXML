@@ -1,0 +1,63 @@
+
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	
+	<link rel="stylesheet" type="text/css" href="style.css">
+	<title>Login</title>
+</head>
+
+<body>
+
+	<div id="alert" style="position: absolute; top: 200px; left: 100px;">
+	</div>
+			
+	<div class="wrap form">
+		<h3>Login</h3>
+		<input type="text" placeholder="username" id="userText" size="25" onkeydown="if(event.keyCode == 13) funkcija1(document.getElementById(&#39;userText&#39;).value, document.getElementById(&#39;passText&#39;).value)">
+						<br>
+		<input type="text" placeholder="password" id="passText" size="25" onkeydown="if(event.keyCode == 13) funkcija1(document.getElementById(&#39;userText&#39;).value, document.getElementById(&#39;passText&#39;).value)">
+						<br><br>
+		<input type="button" value="Submit" onclick="funkcija1(document.getElementById(&#39;userText&#39;).value, document.getElementById(&#39;passText&#39;).value)">
+	
+			<p><br><a href="Register.html">Register?</a></p>
+
+	</div>
+	
+	<script type="text/javascript">
+		var submit_xml = new XMLHttpRequest();			
+		
+
+		
+		function funkcija1(user, pass)
+		{
+			urlAddress = "login.php?op=login&username=" + user + "&password=" + pass;
+			submit_xml.open("GET", urlAddress, true);		
+			submit_xml.onreadystatechange = funkcija2;		
+			submit_xml.send(null);									
+		}
+	
+		function funkcija2()
+		{
+			if(submit_xml.readyState == 4)
+			{
+				if(submit_xml.status == 200)
+				{	
+					document.getElementById("alert").innerHTML = submit_xml.responseText;
+					messageReceived = submit_xml.responseText.split('%');
+
+					if(messageReceived[0] == "Success")
+					{
+						
+						window.location = messageReceived[1];
+					}
+					else
+					{
+						alert("Your credentials are not valid. Please try again.");
+					}
+				}
+			}	
+		}
+	</script>
+
+
+</body>
+</html>
